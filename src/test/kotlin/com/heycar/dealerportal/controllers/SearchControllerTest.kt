@@ -1,6 +1,7 @@
 package com.heycar.dealerportal.controllers
 
 import com.heycar.dealerportal.models.Listing
+import com.heycar.dealerportal.models.SearchFilter
 import com.heycar.dealerportal.services.ProviderService
 import com.heycar.dealerportal.testhelpers.TestHelper.createListing
 import org.assertj.core.api.Assertions.assertThat
@@ -23,7 +24,7 @@ internal class SearchControllerTest {
     @Test
     internal fun `should  empty for if no listing exists`() {
         val expectedListings = emptyList<Listing>()
-        `when`(providerService.getAllListings()).thenReturn(expectedListings)
+        `when`(providerService.getAllListings(SearchFilter())).thenReturn(expectedListings)
 
         val actualListings = controller.searchListings()
 
@@ -33,7 +34,7 @@ internal class SearchControllerTest {
     @Test
     internal fun `should return 200 and all listings if no query parameter is provided`() {
         val expectedListings = listOf(createListing())
-        `when`(providerService.getAllListings()).thenReturn(expectedListings)
+        `when`(providerService.getAllListings(SearchFilter())).thenReturn(expectedListings)
 
         val actualListings = controller.searchListings()
 

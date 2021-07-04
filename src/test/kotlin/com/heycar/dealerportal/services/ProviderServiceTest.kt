@@ -1,8 +1,10 @@
 package com.heycar.dealerportal.services
 
 import com.heycar.dealerportal.models.Listing
+import com.heycar.dealerportal.models.SearchFilter
 import com.heycar.dealerportal.repositories.ListingRepository
 import com.heycar.dealerportal.testhelpers.TestHelper.createListing
+import com.heycar.dealerportal.testhelpers.TestHelper.createListings
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -12,7 +14,7 @@ import org.mockito.Mockito.*
 import org.mockito.junit.jupiter.MockitoExtension
 
 @ExtendWith(MockitoExtension::class)
-internal class ProviderServiceTest{
+internal class ProviderServiceTest {
 
     @Mock
     private lateinit var listingRepository: ListingRepository
@@ -30,12 +32,13 @@ internal class ProviderServiceTest{
     }
 
     @Test
-    internal fun `should get all listings from the store`() {
+    internal fun `should get all listings from the store if no filter is provided`() {
         val expectedListings = listOf(createListing())
         `when`(listingRepository.getAllListings()).thenReturn(expectedListings)
 
-        val actualListings: List<Listing> = providerService.getAllListings()
+        val actualListings: List<Listing> = providerService.getAllListings(SearchFilter())
 
         assertThat(actualListings).isEqualTo(expectedListings)
     }
+
 }

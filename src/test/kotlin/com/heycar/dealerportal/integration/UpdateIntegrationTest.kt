@@ -1,6 +1,7 @@
 package com.heycar.dealerportal.integration
 
 import com.heycar.dealerportal.models.Listing
+import com.heycar.dealerportal.models.SearchFilter
 import com.heycar.dealerportal.services.ProviderService
 import com.heycar.dealerportal.testhelpers.TestHelper
 import org.assertj.core.api.Assertions.assertThat
@@ -73,7 +74,7 @@ class UpdateIntegrationTest {
 
         mockMvc.perform(request)
 
-        val foundListing = providerService.getAllListings().filter { it.code == "a" && it.make == "Skoda" }.first()
+        val foundListing = providerService.getAllListings(SearchFilter()).filter { it.code == "a" && it.make == "Skoda" }.first()
         assertThat(foundListing.code).isEqualTo("a")
         assertThat(foundListing.make).isEqualTo("Skoda")
         assertThat(foundListing.model).isEqualTo("megane")
