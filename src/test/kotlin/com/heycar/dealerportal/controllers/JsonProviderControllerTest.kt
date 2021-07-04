@@ -41,10 +41,10 @@ internal class JsonProviderControllerTest{
     }
 
     @Test
-    internal fun `should return 201 for valid dealer id, valid json`() {
+    internal fun `should return 200 for valid dealer id, valid json`() {
         val response: ResponseEntity<String> = controller.uploadListings(validDealerId, jsonBody)
 
-        Assertions.assertThat(response.statusCodeValue).isEqualTo(204)
+        Assertions.assertThat(response.statusCodeValue).isEqualTo(200)
         verify(providerService, only()).save(validDealerId, jsonBody)
     }
 

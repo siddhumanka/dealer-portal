@@ -5,13 +5,13 @@ import org.springframework.stereotype.Repository
 
 @Repository
 class ListingRepository {
-    private val store = hashMapOf<String, List<Listing>>()
+    private val store = hashMapOf<Pair<String, String>, Listing>()
 
     fun save(dealerId: String, listings: List<Listing>) {
-        store.putIfAbsent(dealerId, listings)
+        listings.forEach { store[Pair(dealerId, it.code)] = it }
     }
 
     fun getAllListings(): List<Listing> {
-        return store.values.flatten()
+        return store.values.toList()
     }
 }

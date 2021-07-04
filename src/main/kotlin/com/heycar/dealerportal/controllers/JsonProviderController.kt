@@ -14,6 +14,6 @@ class JsonProviderController(private val providerService: ProviderService) {
                        @RequestBody listings: List<Listing>): ResponseEntity<String> {
         if (dealerId.isEmpty()) return ResponseEntity.badRequest().body("bad request")
         providerService.save(dealerId, listings)
-        return ResponseEntity.noContent().build()
+        return ResponseEntity.ok().build()
     }
 }

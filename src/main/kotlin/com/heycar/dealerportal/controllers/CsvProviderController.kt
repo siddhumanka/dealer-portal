@@ -15,6 +15,6 @@ class CsvProviderController(private val providerService: ProviderService) {
         if (dealerId.isEmpty()) return ResponseEntity.badRequest().body("bad request")
 
         providerService.save(dealerId, CsvHelper.csvToListings(listingsFile.inputStream))
-        return ResponseEntity.noContent().build()
+        return ResponseEntity.ok().build()
     }
 }

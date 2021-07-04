@@ -33,7 +33,7 @@ internal class UploadIntegrationTest {
     }
 
     @Test
-    internal fun `should return NO_CONTENT for a valid csv upload`() {
+    internal fun `should return OK for a valid csv upload`() {
         val dealerID = "1"
         val testFileName = "test-dealer-listings.csv"
         val file = ResourceUtils.getFile("classpath:$testFileName")
@@ -47,11 +47,11 @@ internal class UploadIntegrationTest {
         val response = mockMvc.perform(multipart("/upload-csv/$dealerID")
                 .file(multipartFile))
 
-        response.andExpect(status().isNoContent)
+        response.andExpect(status().isOk)
     }
 
     @Test
-    internal fun `should return NO_CONTENT for a valid json upload`() {
+    internal fun `should return OK for a valid json upload`() {
         val dealerID = "1"
         val jsonBody = """
             [
@@ -72,7 +72,7 @@ internal class UploadIntegrationTest {
 
         val response = mockMvc.perform(request)
 
-        response.andExpect(status().isNoContent)
+        response.andExpect(status().isOk)
     }
 
 }

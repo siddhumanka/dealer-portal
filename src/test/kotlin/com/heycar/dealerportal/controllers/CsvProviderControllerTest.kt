@@ -42,10 +42,10 @@ internal class CsvProviderControllerTest {
     }
 
     @Test
-    internal fun `should return 201 for valid dealer id, valid csv`() {
+    internal fun `should return 200 for valid dealer id, valid csv`() {
         val response: ResponseEntity<String> = controller.uploadCsvListings(validDealerId, file)
 
-        assertThat(response.statusCodeValue).isEqualTo(204)
+        assertThat(response.statusCodeValue).isEqualTo(200)
         verify(service, only()).save(validDealerId, CsvHelper.csvToListings(file.inputStream))
     }
 
