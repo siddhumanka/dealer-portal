@@ -18,7 +18,7 @@ import org.springframework.util.ResourceUtils
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
 @AutoConfigureMockMvc
-internal class IntegrationTest {
+internal class ProviderIntegrationTest {
 
     @Autowired
     private lateinit var mockMvc: MockMvc
@@ -33,7 +33,7 @@ internal class IntegrationTest {
     }
 
     @Test
-    internal fun `should return NO_CONTENT for csv upload`() {
+    internal fun `should return NO_CONTENT for a valid csv upload`() {
         val dealerID = "1"
         val testFileName = "test-dealer-listings.csv"
         val file = ResourceUtils.getFile("classpath:$testFileName")
@@ -46,6 +46,31 @@ internal class IntegrationTest {
 
         val response = mockMvc.perform(multipart("/upload-csv/$dealerID")
                 .file(multipartFile))
+
+        response.andExpect(status().isNoContent)
+    }
+
+    @Test
+    internal fun `should return NO_CONTENT for a valid json upload`() {
+        val dealerID = "1"
+        val jsonBody = """
+            [
+                {
+                    "code": "a",
+                    "make": "renault",
+                    "model": "megane",
+                    "kW": 132,
+                    "year": 2014,
+                    "color": "red",
+                    "price": 13990
+                }
+            ]
+        """.trimIndent()
+        val request = post("/dealers/$dealerID/vehicle-listings")
+                .content(jsonBody)
+                .contentType("application/json")
+
+        val response = mockMvc.perform(request)
 
         response.andExpect(status().isNoContent)
     }
