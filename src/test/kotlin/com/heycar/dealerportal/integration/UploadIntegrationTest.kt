@@ -1,4 +1,4 @@
-package com.heycar.dealerportal.integrationTest
+package com.heycar.dealerportal.integration
 
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -18,7 +18,7 @@ import org.springframework.util.ResourceUtils
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
 @AutoConfigureMockMvc
-internal class ProviderIntegrationTest {
+internal class UploadIntegrationTest {
 
     @Autowired
     private lateinit var mockMvc: MockMvc
